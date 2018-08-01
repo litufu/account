@@ -3,3 +3,6 @@ const api = process.env.REACT_APP_RECORDS_API_URL || "https://5b611940bde36b0014
 
 export const getAll = () =>
   axios.get(`${api}/api/v1/records`)
+
+export const send = (data) =>
+  axios.post(`${api}/api/v1/records`,data)

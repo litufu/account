@@ -27,6 +27,15 @@ export default class Records extends Component {
     )
   }
 
+  addData(data){
+    console.log(data)
+    this.setState({
+        isLoaded:true,
+        error:null,
+        records:[...this.state.records,data]
+      }
+    )
+  }
 
   render() {
     const {isLoaded,error,records} = this.state;
@@ -57,7 +66,7 @@ export default class Records extends Component {
 
       return(
         <div>
-          <RecordForm />
+          <RecordForm onSubmitData={this.addData.bind(this)}/>
           <h1>records</h1>
           {recordElement}
         </div>
