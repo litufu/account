@@ -6,3 +6,6 @@ export const getAll = () =>
 
 export const send = (data) =>
   axios.post(`${api}/api/v1/records`,data)
+
+export const update = (id,data) =>
+ axios.put(`${api}/api/v1/records/${id}`,data)
