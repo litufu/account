@@ -16,6 +16,7 @@ export default class Record extends Component {
     }));
   }
 
+
   handleUpdate(){
     let date = parseInt(this.refs.date.value,0);
     let account = this.refs.account.value;

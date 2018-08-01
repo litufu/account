@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Record from './Record'
 import * as RecordsAPI from '../utils/RecordsAPI'
 import RecordForm from './RecordForm'
+import Sum from './Sum'
 
 export default class Records extends Component {
   constructor(props){
@@ -59,6 +60,24 @@ export default class Records extends Component {
     })
   }
 
+  credit(){
+    const newRecords = this.state.records.filter((item,index)=>item.amount>=0)
+    return newRecords.reduce((prev,curr)=>{
+      return prev+Number.parseInt(curr.amount,0)
+    },0)
+  }
+
+  debet(){
+    const newRecords = this.state.records.filter((item,index)=>item.amount<0)
+    return newRecords.reduce((prev,curr)=>{
+      return prev+Number.parseInt(curr.amount,0)
+    },0)
+  }
+
+  balance(){
+    return this.credit()+this.debet()
+  }
+
   render() {
     const {isLoaded,error,records} = this.state;
     let recordElement ;
@@ -94,8 +113,13 @@ export default class Records extends Component {
 
       return(
         <div>
+        <h1>records</h1>
+          <div className='row mb-3'>
+            <Sum text='credit'amount={this.credit()}/>
+            <Sum text='debet' amount={this.debet()}/>
+            <Sum text='balance' amount={this.balance()}/>
+          </div>
           <RecordForm onSubmitData={this.addData.bind(this)}/>
-          <h1>records</h1>
           {recordElement}
         </div>
       )
