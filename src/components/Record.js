@@ -34,6 +34,14 @@ export default class Record extends Component {
 
   }
 
+  handleDelete(){
+    RecordsAPI.remove(this.props.record.id).then(
+      response=>this.props.onDelete(this.props.record)
+    ).catch(
+      error => console.log(error.message)
+    )
+  }
+
   render() {
     if(!this.state.edit){
       return (
@@ -43,7 +51,7 @@ export default class Record extends Component {
           <td>{this.props.record.amount}</td>
           <td>
             <button onClick={this.handleEditClick.bind(this)}>edit</button>
-            <button>delete</button>
+            <button onClick={this.handleDelete.bind(this)}>delete</button>
           </td>
         </tr>
       );
