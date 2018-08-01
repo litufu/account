@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Record from './Record'
-import axios from 'axios'
+import * as RecordsAPI from '../utils/RecordsAPI'
 
 export default class Records extends Component {
   constructor(props){
@@ -13,7 +13,7 @@ export default class Records extends Component {
   }
 
   componentDidMount() {
-    axios.get("https://5b611940bde36b0014081320.mockapi.io/api/v1/records").then(
+    RecordsAPI.getAll().then(
       response => this.setState({
         records: response.data,
         isLoaded: true
@@ -47,7 +47,7 @@ export default class Records extends Component {
                 </tr>
               </thead>
               <tbody>
-                {records.map((record,index)=><Record record={record} key={index}/>)}
+                {records.map((record) => <Record key={record.id} {...record} />)}
               </tbody>
             </table>
           </div>
